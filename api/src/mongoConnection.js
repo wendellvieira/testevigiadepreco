@@ -11,25 +11,30 @@ const connectionSettings = {
 
 const client = new MongoClient( connectionUrl, connectionSettings );
 
-module.exports = new Promise( (resolve, reject) => {
+module.exports = collection => {
 
-    client.connect( err => {
+    return new Promise( (resolve, reject) => {
 
-        if( !err ){
-            reject()
-            console.err('Erro ao conectar ao servidor!')
-            client.close()
-        }
-        
-        console.log( err, 'Conected successfully to server' )
-
-        resolve({
-            db: client.db(database),
-            close: client.close
-        })
-        
+        client.connect( err => {
     
-    });
+            if( !!err  ){
+                reject()
+                console.log('Erro ao conectar ao servidor!')
+                client.close()
+                return;
+            }
+            
+            const db = client.db(database)
+    
+            const mongoCollection = db.collection(collection)
+    
+            resolve({
+                collection: mongoCollection,
+                close: () => client.close()
+            })
+        
+        })
 
+    })
 
-} )
+};

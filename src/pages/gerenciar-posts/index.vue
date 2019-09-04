@@ -13,11 +13,25 @@
 <script>
     import GerenciamentoDeCategorias from './components/gerenciamento-de-categorias'
     import GerenciamentoDePostagens from './components/gerenciamento-de-postagens'
+    import {mapMutations} from 'vuex'
 
     export default {
         components: {
             GerenciamentoDeCategorias,
             GerenciamentoDePostagens
+        },
+        methods: {
+            ...mapMutations('GERENCIAR_POSTS', {
+                setCategorias: 'SET_CATEGORIAS'
+            }),
+            loadInitialData(){
+                this.$axios.get('/categorias').then( resp => {
+                    this.setCategorias(resp.data)
+                })
+            },
+        },
+        mounted(){
+            this.loadInitialData()
         }
         
     };

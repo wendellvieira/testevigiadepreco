@@ -1,40 +1,46 @@
 <template>
     <q-layout view="lhh LpR lff" container rounded style="height: 500px">
-        <q-header reveal class="bg-blue-5">
-            <q-toolbar>
-                <q-toolbar-title>
-                    <q-input 
-                        dark dense standout
-                        v-model="text"   
-                        placeholder="Filtrar/Adicionar">
-
-                        <template v-slot:append>
-                            <q-icon v-if="text === ''" name="search" />
-                            <q-icon v-else name="clear" class="cursor-pointer" @click="text = ''" />
-                        </template>
-                        
-                    </q-input>
-                </q-toolbar-title>
-                
-                <q-btn flat @click="drawerRight = !drawerRight" round dense icon="save" />
-            </q-toolbar>
-        </q-header>
-         <q-page-container>
+        <categoria-header 
+            :search.sync='search'
+        />
+        <q-page-container>
             <q-page>
                 <q-list bordered separator>
-                    <q-item clickable v-ripple>
-                        <q-item-section>Single line item</q-item-section>
-                    </q-item>
+                    <categoria-item 
+                        v-for='(item, index) in filterCategorias' 
+                        :key='index'
+                        :data='item'
+                    />
                 </q-list>
             </q-page>
-         </q-page-container>
+        </q-page-container>
     </q-layout>
 </template>
 <script>
+    import CategoriaHeader from './components/header'
+    import CategoriaItem from './components/item'
+    import {mapState} from 'vuex'
+
     export default {
         data(){
             return {
-                text: ''
+                search: ''
+            }
+        },
+        components: {
+            CategoriaHeader,
+            CategoriaItem
+        },
+        computed: {
+            ...mapState('GERENCIAR_POSTS', {
+                categorias: s => s.categorias
+            }),
+
+            filterCategorias(){
+                if( this.search == "" ) return this.categorias
+                return this.categorias.filter( item => 
+                    item.title.toLowerCase().indexOf( this.search.toLowerCase() ) != -1
+                )
             }
         }
     };

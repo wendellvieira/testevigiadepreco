@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/wendellvieira/testevigiadepreco#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongodb": "^3.3.2"
   }
