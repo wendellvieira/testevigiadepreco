@@ -1,14 +1,14 @@
 import axios from 'axios'
 
 export default async ({ Vue }) => {
+  const serverUrl = 'http://localhost:3000'
+
   const instance = axios.create({
-    baseURL: 'http://localhost:3000',
-    // transformRequest: data => {
-    //   const formData = new FormData
-    //   formData.append('teste', 'teste')
-    //   return formData
-    // }
-  });
-  
+    baseURL: serverUrl
+  });  
   Vue.prototype.$axios = instance
+
+  Vue.prototype.$getImage = image => {
+    return `${serverUrl}/file/${image}`
+  }
 }

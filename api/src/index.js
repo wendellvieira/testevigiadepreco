@@ -11,6 +11,9 @@ App.use( cors() )
 const Categorias = require('./modules/categorias')
 App.use('/categorias', Categorias)
 
+// Registro do modulo de imagens
+const Files = require('./modules/files')
+App.use('/file', Files)
 
 
 
