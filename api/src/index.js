@@ -1,32 +1,12 @@
-// const MongoClient = require('mongodb').MongoClient;
-
-// const connectionUrl = 'mongodb://localhost:27017';
-
-// const database = 'vigiadb';
-
-// const connectionSettings = {
-//     useUnifiedTopology: true,
-//     useNewUrlParser: true
-// }
-
-// const client = new MongoClient( connectionUrl, connectionSettings );
-
-// client.connect( err => {
-
-//     console.log( err, 'Conected successfully to server' );
-
-//     const db = client.db(database);
-    
-//     client.close();
-
-// });
-
 const express = require('express')
-const app = express()
+const App = express()
 
-app.get('/', (request, response) => {
-    response.send('ola mundo')
+// Registro do modulo de categorias...
+const Categorias = require('./modules/categorias')
+App.use('/categorias', Categorias)
+
+
+
+App.listen(3000, () => {
+    console.log('server is rinning')
 })
-
-app.listen(3000)
-console.log('server is rinning')
