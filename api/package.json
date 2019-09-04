@@ -1,0 +1,28 @@
+{
+  "name": "api.vigiadeprecos",
+  "version": "1.0.0",
+  "description": "api para o teste",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wendellvieira/testevigiadepreco.git"
+  },
+  "keywords": [
+    "test",
+    "vigia",
+    "preco"
+  ],
+  "author": "wendell.vieiracunha@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wendellvieira/testevigiadepreco/issues"
+  },
+  "homepage": "https://github.com/wendellvieira/testevigiadepreco#readme",
+  "dependencies": {
+    "mongodb": "^3.3.2"
+  }
+}
