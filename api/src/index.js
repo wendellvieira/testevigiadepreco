@@ -15,6 +15,9 @@ App.use('/categorias', Categorias)
 const Files = require('./modules/files')
 App.use('/file', Files)
 
+// Registro do modulo de posts
+const Posts = require('./modules/posts')
+App.use('/posts', Posts)
 
 
 App.listen(3000, () => {
