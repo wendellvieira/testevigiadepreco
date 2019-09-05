@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
+const DirFiles = `${__dirname}/../../public/uploads/`
 
 const fileOptions = {
-    root: `${__dirname}/../../public/`
+    root: DirFiles
 }
 
 
@@ -13,7 +14,7 @@ const path = require('path')
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, `${__dirname}/../../public/`)
+        cb(null, DirFiles)
     },
     filename: function (req, file, cb) {
         cb(null, `${file.fieldname.toUpperCase()}_${Date.now()}${path.extname(file.originalname)}`);
