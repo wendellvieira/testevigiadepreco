@@ -1,7 +1,8 @@
 import axios from 'axios'
 
-export default async ({ Vue }) => {
-  const serverUrl = 'http://localhost:3000'
+export const serverUrl = 'http://localhost:3000'
+
+export default async ({ Vue }) => {  
 
   const instance = axios.create({
     baseURL: serverUrl
