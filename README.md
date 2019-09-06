@@ -1,5 +1,12 @@
-# Test Vigia precos (app.vigiadeprecos)
+## Test Vigia precos (app.vigiadeprecos)
 > Segue a avaliação...
+
+## Considerações
+- Tempo gasto aproximado 20h
+- **/src** arquivos vue
+- **/api** express.js/mongoDb
+- Foi utilizado para este teste um framework vue chamado [Quasar](https://quasar.dev/introduction-to-quasar) afim de otimizar sem perder qualidade.
+
 
 ## Instruções de instalação
 - Instale o quasar (Framework frontend)
