@@ -7,18 +7,15 @@ App.use(express.json())
 const cors = require('cors')
 App.use( cors() )
 
-// Registro do modulo de categorias...
-const Categorias = require('./modules/categorias')
-App.use('/categorias', Categorias)
+const routes = {
+    categorias: './modules/categorias',
+    file: './modules/files',
+    post: './modules/posts'
+}
 
-// Registro do modulo de imagens
-const Files = require('./modules/files')
-App.use('/file', Files)
-
-// Registro do modulo de posts
-const Posts = require('./modules/posts')
-App.use('/post', Posts)
-
+for(let route in routes){
+    App.use(`/${route}`, require(routes[route]))
+}
 
 App.listen(3000, () => {
     console.log('server is rinning')
