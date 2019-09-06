@@ -115,7 +115,7 @@ Veritatis sapiente porro minus. Aspernatur expedita officia reprehenderit eaque 
                 })                
             },
             loadPost(id){
-                this.$axios.get(`/post/${id}`).then( resp => {
+                this.$axios.get(`/post/find/${id}`).then( resp => {
                     this.form = resp.data
                 })
             }

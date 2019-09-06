@@ -4,7 +4,7 @@ const routes = [
     path: '/',
     component: () => import('layouts/app'),
     children: [
-      // { path: '', component: () => import('pages/Index.vue') },
+      { path: '', component: () => import('pages/dashboard') },
       { path: 'gerenciar-posts', component: () => import('pages/gerenciar-posts') },
       { path: 'editar-post/:id', component: () => import('pages/editar-post') },
     ]
