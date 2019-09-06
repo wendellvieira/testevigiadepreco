@@ -2,6 +2,7 @@
     <q-layout view="lHh Lpr lFf">
         <app-header 
             :leftDrawerOpen.sync='leftDrawerOpen' 
+            :title='title'
         />
 
         <app-menu
@@ -9,7 +10,9 @@
         />
 
         <q-page-container>
-            <router-view />
+            <router-view 
+                :title.sync='title'
+            />
         </q-page-container>
     </q-layout>
 </template>
@@ -26,7 +29,8 @@
         },
         data () {
             return {
-                leftDrawerOpen: false
+                leftDrawerOpen: false,
+                title: 'TITLE PAGE'
             }
         }
     };
