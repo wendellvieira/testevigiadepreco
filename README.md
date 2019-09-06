@@ -18,7 +18,7 @@ $ npm install -g @quasar/cli
 ```
 $ npx quasar dev
 ```
-- Altere os dados de acesso ao serviço do MongoDb
+- Altere os dados de acesso ao serviço do MongoDb em **/api/src/assets/mongo-connection.js**
 ```javascript
 ...
 const connectionUrl = 'mongodb://localhost:27017';
