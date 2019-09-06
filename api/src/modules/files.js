@@ -1,43 +1,49 @@
 const express = require('express')
-const router = express.Router()
-
-const DirFiles = `${__dirname}/../../public/uploads/`
-
-const fileOptions = {
-    root: DirFiles
-}
-
-
-// Configurações para upload
 const multer = require('multer')
 const path = require('path')
+const router = express.Router()
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, DirFiles)
+
+const baseDirs =  `${__dirname}/../../public/`
+const drives = {
+    upload: {
+        path: baseDirs + 'uploads/',
+        upload: true
     },
-    filename: function (req, file, cb) {
-        cb(null, `${file.fieldname.toUpperCase()}_${Date.now()}${path.extname(file.originalname)}`);
+    static: {
+        path: baseDirs + 'statics/',
+        upload: false
     }
-});
+}
 
-const upload = multer({ storage })
+for( let drive in drives ){
 
+    // Rota para upload
+    if(drives[drive].upload){
+        let storage = multer.diskStorage({
+            destination: (req, file, cb) => {
+                cb( null, drives[drive].path )
+            },
+            filename: function (req, file, cb) {
+                cb(null, `${file.fieldname.toUpperCase()}_${Date.now()}${path.extname(file.originalname)}`);
+            }
+        });
 
+        let upload = multer({ storage })
 
-router.get('/:file', async (request, response) => {
+        router.post(`/${drive}`, upload.single('file'), async (request, response) => {   
+            response.send(`${drive}/${request.file.filename}`)        
+        })
+    }
 
-    const file = request.params.file
-
-    response.sendFile( file, fileOptions )
-
-})
-
-router.post('/', upload.single('file'), async (request, response) => {
-   
-    response.send(request.file.filename)
-
-})
+    // Rota de acesso
+    router.get(`/${drive}/:file`, async (request, response) => {
+        let file = request.params.file    
+        response.sendFile( file, {
+            root: drives[drive].path
+        })    
+    })
+}
 
 module.exports = router
 

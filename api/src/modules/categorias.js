@@ -1,14 +1,14 @@
 const express = require('express')
+
 const router = express.Router()
-const db = require('../mongoConnection.js')
 
-router.get('/', async (request, response) => {
+const db = require('../assets/mongo-connection')
 
-    const mongodb = await db('categorias')
-   
-    const categorias = mongodb.collection
 
-    categorias.find({}).toArray( (err, data) => {
+router.get('/', async (request, response) => { 
+    const _DB = await db('categorias')
+
+    _DB.collection.find({}).toArray( (err, data) => {
         if( !!err ) {
             response.status(404).json({ message: 'Erro ao fazer consulta' })
             return;
@@ -16,17 +16,14 @@ router.get('/', async (request, response) => {
         response.json(data)
     })            
 
-    mongodb.close()
+    _DB.close()
        
 })
 
 router.post('/', async ( request, response ) => {
+    const _DB = await db('categorias')
 
-    const mongodb = await db('categorias')
-   
-    const categorias = mongodb.collection
-
-    categorias.insertOne(request.body, (err, data) => {
+    _DB.collection.insertOne(request.body, (err, data) => {
         if( !!err ) {
             response.status(404).json({ message: 'Erro ao salvar categoria' })
             return;
@@ -34,25 +31,35 @@ router.post('/', async ( request, response ) => {
         response.json(data.ops[0])
     })        
 
-    mongodb.close()
+    _DB.close()
        
 })
 
-router.delete('/:id', async ( request, response ) => {
-    
-    const mongodb = await db('categorias')
-    
-    const categorias = mongodb.collection
+router.delete('/:id', async ( request, response ) => { 
+    const _DB = await db('categorias')
 
-    const deleteData = {
-        id: request.params.id
-    }
-    
-    categorias.deleteOne( deleteData, ( err, r ) => {
+    _DB.collection.deleteOne( { id: request.params.id  }, ( err, r ) => {
         response.json( { status: 'success'} )        
     })
 
-    mongodb.close()
+   _DB.close()
+       
+})
+
+router.put('/', async ( request, response ) => {
+    const _DB = await db('categorias')
+
+    _DB.collection.updateOne({ id: request.body.id }, { $set: request.body }, (err, data) => {
+        if( !!err ) {
+            response.status(404).json({ message: 'Erro ao salvar categoria' })
+            return;
+        }
+        if( data.modifiedCount == 1 ){
+            response.sendStatus(200)
+        }
+    })        
+
+    _DB.close()
        
 })
 

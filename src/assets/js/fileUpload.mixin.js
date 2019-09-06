@@ -2,7 +2,7 @@ import {serverUrl} from 'boot/axios'
 
 export default {
     methods: {
-        UploadFileMixin( file ){
+        UploadFileMixin( file, drive = 'upload' ){
             return new Promise( (resolve, reject) => {
 
                 const _FORM = new FormData;
@@ -10,7 +10,7 @@ export default {
 
                 const _XHR = new XMLHttpRequest;
 
-                _XHR.open('POST', `${serverUrl}/file`, true)
+                _XHR.open('POST', `${serverUrl}/file/${drive}`, true)
 
                 _XHR.onload = response => {
                     resolve(response)

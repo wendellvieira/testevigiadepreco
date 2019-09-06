@@ -9,6 +9,7 @@
             :src='imagem.preview'
             spinner-color="white" :ratio="1"
             class="ctn-avatar" contain
+            @click.native='$refs.file.click()'
         />
         <q-btn 
             class="full-width q-mt-md" 
@@ -40,10 +41,16 @@
                 },
             }
         },
+        watch: {
+            'value': function(val){
+                if( !!val )  this.imagem.preview = this.$getImage(val)
+            }
+        },
         methods: {
             CancelSendFile(){
                 this.imagem.file = null
-                this.imagem.preview = this.$getImage("sem-imagem.png")
+                if(!this.value) this.imagem.preview = this.$getImage("static/sem-imagem.png")
+                else this.imagem.preview = this.$getImage(this.value)
             },
             LoadPreview(ev) {
                 // 
@@ -69,7 +76,11 @@
                     if( this.imagem.file == null ) resolve( )
                     else {
                         this.UploadFileMixin(this.imagem.file).then( resp => {
+
                             this.$emit('input', resp.target.response)
+                            this.imagem.preview = this.$getImage(resp.target.response)
+                            this.imagem.file = null
+
                             resolve()
                         
                         }).catch( err => {
@@ -80,7 +91,7 @@
             }
         },
         mounted(){
-            this.imagem.preview = !this.value ? this.$getImage("sem-imagem.png") : this.$getImage(this.value)
+            this.imagem.preview = !this.value ? this.$getImage("static/sem-imagem.png") : this.$getImage(this.value)
         }
     };
 </script>

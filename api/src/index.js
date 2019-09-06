@@ -17,9 +17,12 @@ App.use('/file', Files)
 
 // Registro do modulo de posts
 const Posts = require('./modules/posts')
-App.use('/posts', Posts)
+App.use('/post', Posts)
 
 
 App.listen(3000, () => {
     console.log('server is rinning')
 })
+
+
+

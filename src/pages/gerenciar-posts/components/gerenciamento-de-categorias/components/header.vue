@@ -44,7 +44,7 @@
         ],
         methods: {
             ...mapMutations('GERENCIAR_POSTS', {
-                registerCategorie: 'REGISTERAR_CATEGORIA'
+                registerCategorie: 'REGISTRAR_CATEGORIA'
             }),
             CreateCategorie(){
                 
