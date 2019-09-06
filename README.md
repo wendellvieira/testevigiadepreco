@@ -6,6 +6,7 @@
 - **/src** arquivos vue
 - **/api** express.js/mongoDb
 - Foi utilizado para este teste um framework vue chamado [Quasar](https://quasar.dev/introduction-to-quasar) afim de otimizar sem perder qualidade.
+- Desde de já agradeço a oportunidade e espero em brave fazer parte da aquipe.
 
 
 ## Instruções de instalação
