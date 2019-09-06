@@ -37,7 +37,7 @@ router.get('/', async (request, response) => {
     _DB.close()
 })
 
-router.get('/:id', async (request, response) => {
+router.get('/find/:id', async (request, response) => {
     const _DB = await db('posts')
 
     _DB.collection.find({ id: request.params.id }).toArray( (err, data) => {
@@ -54,6 +54,42 @@ router.get('/:id', async (request, response) => {
 
     _DB.close()
 })
+
+router.post('/filter/:qnt/:page', async (request, response) => {
+    const   
+        _DB = await db('posts'),
+        skip = parseInt(request.params.page)*parseInt(request.params.qnt),
+        findData = {};
+
+        if( request.body.search != '' ){
+            const search = new RegExp(request.body.search, 'gi')
+            findData.title = { $regex: search }
+            findData.description = { $regex: search }
+        }
+
+        if( request.body.sCats.length > 0 ){
+            findData.categories = {
+                $all: request.body.sCats
+            }
+        }
+
+        _DB.collection
+            .find(findData)
+            .skip( skip )
+            .limit( parseInt(request.params.qnt) )
+            .toArray( ( err, data ) => {
+                if( !!err ){
+                    response.status(404).json({ message: 'Não foi possível salvar!' })
+                    return;
+                }
+
+                response.json(data)
+            })
+  
+
+    _DB.close()
+})
+
 
 router.put('/',  async (request, response) => {
     const _DB = await db('posts')

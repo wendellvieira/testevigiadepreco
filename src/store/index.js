@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import GERENCIAR_POSTS from 'pages/gerenciar-posts/vuex'
+import DASHBOARD from 'pages/dashboard/vuex'
+import LAYOUTAPP from 'layouts/app/vuex' 
 
 Vue.use(Vuex)
 
@@ -13,7 +15,9 @@ Vue.use(Vuex)
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
-      GERENCIAR_POSTS
+      GERENCIAR_POSTS,
+      DASHBOARD,
+      LAYOUTAPP
     },
 
     // enable strict mode (adds overhead!)
