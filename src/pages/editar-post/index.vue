@@ -123,6 +123,7 @@ Veritatis sapiente porro minus. Aspernatur expedita officia reprehenderit eaque 
         mounted(){            
             this.LoadAssets()
             this.$emit('update:title', 'Editar post')
+            this.$emit('update:headerCmp', null)
             if(this.$route.params.id != 'new'){
                 this.loadPost(this.$route.params.id)
             }

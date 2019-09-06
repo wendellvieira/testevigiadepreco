@@ -2,12 +2,12 @@
     <div class="cnt-card col-lg-3 col-md-4 col-sm-6 col-xs-12 q-pa-md">
         <q-card class="my-card ">
             <q-img 
-                :src="$getImage(data.image)"
+                :src="$getImage(data.image || 'static/sem-imagem.png')"
                 style='height: 250px'
             />
 
             <q-card-section>
-                <div class="text-h6 text-center">{{data.title}}</div>
+                <div class="text-h6 title-card">{{data.title}}</div>
             </q-card-section>
 
             <q-card-section class='text-center' style='height: 150px'>
@@ -27,7 +27,7 @@
         props: ['data'],
         filters: {
             DescSlug(val){
-                return val.replace(/(<([^>]+)>)|(\&([^>]+)\;)/ig,"").substring(0, 200)
+                return val.replace(/(<([^>]+)>)|(\&([^>]+)\;)/ig,"").substring(0, 200) + "..."
             }
         }
     };

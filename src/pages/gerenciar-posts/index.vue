@@ -43,6 +43,7 @@
         mounted(){
             this.loadInitialData()
             this.$emit('update:title', 'Gerenciamento de postagens e categorias')
+            this.$emit('update:headerCmp', null)
         }
         
     };
